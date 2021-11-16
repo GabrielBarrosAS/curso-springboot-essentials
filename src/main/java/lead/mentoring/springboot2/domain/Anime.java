@@ -11,10 +11,13 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+//Mapeamento de atributos e objetos para tabelas e dados
+@Builder
+//Lombok -> permite instanciar objetos de uma maneira mais organizada
 public class Anime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String nome;
 
 }

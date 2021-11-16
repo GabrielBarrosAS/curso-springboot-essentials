@@ -1,6 +1,8 @@
 package lead.mentoring.springboot2.controller;
 
 import lead.mentoring.springboot2.domain.Anime;
+import lead.mentoring.springboot2.requests.AnimePostRequestBody;
+import lead.mentoring.springboot2.requests.AnimePutRequestBody;
 import lead.mentoring.springboot2.service.AnimeService;
 import lead.mentoring.springboot2.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +31,13 @@ public class AnimeController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<Anime> findById(@PathVariable long id){
         log.info(dateUtil.formaLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return new ResponseEntity(animeService.findById(id), HttpStatus.OK);
+        return new ResponseEntity(animeService.findByIdOrThrowBadRequestException(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public  ResponseEntity<Anime> save(@RequestBody Anime anime){
+    public  ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody){
         log.info(dateUtil.formaLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return new ResponseEntity(animeService.save(anime),HttpStatus.CREATED);
+        return new ResponseEntity(animeService.save(animePostRequestBody),HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -46,9 +48,9 @@ public class AnimeController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Anime anime){
+    public ResponseEntity<Void> replace(@RequestBody AnimePutRequestBody animePutRequestBody){
         log.info(dateUtil.formaLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        animeService.replace(anime);
+        animeService.replace(animePutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
