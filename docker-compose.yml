@@ -8,7 +8,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - springboot_essentials_data:/var/lin/mysql
+      - springboot_essentials_data:/var/lib/mysql
 
 volumes:
   springboot_essentials_data:

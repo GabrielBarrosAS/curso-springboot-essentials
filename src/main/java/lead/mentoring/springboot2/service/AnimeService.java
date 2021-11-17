@@ -1,6 +1,7 @@
 package lead.mentoring.springboot2.service;
 
 import lead.mentoring.springboot2.domain.Anime;
+import lead.mentoring.springboot2.mapper.AnimeMapper;
 import lead.mentoring.springboot2.repository.AnimeRepository;
 import lead.mentoring.springboot2.requests.AnimePostRequestBody;
 import lead.mentoring.springboot2.requests.AnimePutRequestBody;
@@ -30,7 +31,7 @@ public class AnimeService {
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-        return animeRepository.save(Anime.builder().nome(animePostRequestBody.getNome()).build());
+        return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
 
     public void delete(long id) {
@@ -40,9 +41,9 @@ public class AnimeService {
     public void replace(AnimePutRequestBody animePutRequestBody) {
         findByIdOrThrowBadRequestException(animePutRequestBody.getId());
 
-        animeRepository.save(Anime.builder()
-                            .nome(animePutRequestBody.getNome())
-                            .id(animePutRequestBody.getId())
-                            .build());
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        anime.setId(animePutRequestBody.getId());
+
+        animeRepository.save(anime);
     }
 }
