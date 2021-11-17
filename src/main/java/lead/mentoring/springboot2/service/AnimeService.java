@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -35,6 +37,11 @@ public class AnimeService {
         return animeRepository.findByNome(nome);
     }
 
+    //@Transactional(rollbackFor = Exception.class)
+    //Faz com que as alterações só sejam salvas/"commitadas" após o fim do método
+    //Existem tipos de execessões que podem ser incluídos no roll back
+    //Exception inicialmente não é coberta, mas podemos incluir com parâmetro
+    @Transactional
     public Anime save(AnimePostRequestBody animePostRequestBody) {
         return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
