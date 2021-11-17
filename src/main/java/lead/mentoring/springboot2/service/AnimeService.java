@@ -1,6 +1,7 @@
 package lead.mentoring.springboot2.service;
 
 import lead.mentoring.springboot2.domain.Anime;
+import lead.mentoring.springboot2.exception.BadRequestException;
 import lead.mentoring.springboot2.mapper.AnimeMapper;
 import lead.mentoring.springboot2.repository.AnimeRepository;
 import lead.mentoring.springboot2.requests.AnimePostRequestBody;
@@ -27,7 +28,7 @@ public class AnimeService {
 
     public Anime findByIdOrThrowBadRequestException(long id){
         return animeRepository.findById(id).
-                orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Anime not found"));
+                orElseThrow(() -> new BadRequestException("Anime not found"));
     }
 
     public List<Anime> findByNome(String nome){
