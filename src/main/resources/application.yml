@@ -10,3 +10,9 @@ spring:
   jpa:
     hibernate: #sempre que iniciar a aplicação atualizar o banco
       ddl-auto: update
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
