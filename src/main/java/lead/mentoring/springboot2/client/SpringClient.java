@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 @Log4j2
 public class SpringClient {
     public static void main(String[] args) {
-        ResponseEntity<Anime> anime = new RestTemplate().getForEntity("http://localhost:8080/animes", Anime.class);
+        ResponseEntity<Anime> anime = new RestTemplate().getForEntity("http://localhost:8080/animes/1", Anime.class);
 
         log.info(anime);
 
