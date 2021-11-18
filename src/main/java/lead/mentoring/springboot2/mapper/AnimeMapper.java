@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 //permite definir qual atributo da classe sera mapeado para outro com nome diferente se diferente
 public abstract class AnimeMapper {
     public static final AnimeMapper INSTANCE = Mappers.getMapper(AnimeMapper.class);
-    //instância para chamar os métodos de conversão
+    //instância para chamar os métodos de conversão, tbm pode ser feito por injeção de dependencia
 
     public abstract Anime toAnime(AnimePostRequestBody animePostRequestBody);
 
