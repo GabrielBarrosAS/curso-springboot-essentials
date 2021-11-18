@@ -28,6 +28,10 @@ public class AnimeService {
         return animeRepository.findAll(pageable);
     }
 
+    public List<Anime> listAllNoPageable() {
+        return animeRepository.findAll();
+    }
+
     public Anime findByIdOrThrowBadRequestException(long id){
         return animeRepository.findById(id).
                 orElseThrow(() -> new BadRequestException("Anime not found"));
