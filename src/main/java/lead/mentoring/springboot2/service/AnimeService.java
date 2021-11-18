@@ -7,9 +7,7 @@ import lead.mentoring.springboot2.repository.AnimeRepository;
 import lead.mentoring.springboot2.requests.AnimePostRequestBody;
 import lead.mentoring.springboot2.requests.AnimePutRequestBody;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
