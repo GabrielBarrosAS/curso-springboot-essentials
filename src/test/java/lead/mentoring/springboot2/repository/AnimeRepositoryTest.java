@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,10 +82,24 @@ class AnimeRepositoryTest {
 
     @Test
     @DisplayName("Teste para a operação de findByName quando o nome não está no banco")
-        void findByName_ReturnEmptyList_WhenAnimeIsNotFound(){
+    void findByName_ReturnEmptyList_WhenAnimeIsNotFound(){
         List<Anime> animesFind = this.animeRepository.findByNome(generateAnime().getNome());
 
         Assertions.assertThat(animesFind).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Verificando se exceções esperadas são lançadas corretamente")
+    void save_ThrowsConstraintViolationException_WhenNameIsEmpty(){
+        Anime anime = new Anime();
+
+
+        Assertions.assertThatThrownBy(() -> this.animeRepository.save(anime))
+                .isInstanceOf(ConstraintViolationException.class);
+        //Os dois métodos fazem a mesma coisa mas n pode ser usados juntos
+        //Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
+        //        .isThrownBy(() -> this.animeRepository.save(anime));
+        //        .withMessageContaining("The name cannot be empty")
     }
 
 
