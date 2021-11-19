@@ -31,6 +31,7 @@ public class SpringClient {
 
         log.info(exchange.getBody());
 
+        //Aula 29 -> Post com RestTemplate
         Anime newAnimeForObject = Anime.builder()
                 .nome("newAnimeForObject")
                 .build();
