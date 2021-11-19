@@ -1,6 +1,7 @@
 package lead.mentoring.springboot2.repository;
 
 import lead.mentoring.springboot2.domain.Anime;
+import lead.mentoring.springboot2.util.AnimeCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,14 +21,10 @@ class AnimeRepositoryTest {
     @Autowired
     private AnimeRepository animeRepository;
 
-    private Anime generateAnime(){
-        return Anime.builder().nome("Anime para teste").build();
-    }
-
     @Test
     @DisplayName("Testes para operação save")
     void save_PersistenceData_WhenSuccesssful(){
-        Anime animeGenerate = generateAnime();
+        Anime animeGenerate = AnimeCreator.generateAnimeToSave();
         Anime animeSaved = this.animeRepository.save(animeGenerate);
 
         Assertions.assertThat(animeSaved).isNotNull();
@@ -38,52 +35,48 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Teste para a operação de Update")
     void save_UpdataData_WhenSuccessful(){
-        Anime animeGenerate = generateAnime();
-        Anime animeSaved = this.animeRepository.save(animeGenerate);
+        Anime animeGenerate = AnimeCreator.generateAnimeValid();
 
-        animeSaved.setNome("Name update");
-        Anime animeUpdate = this.animeRepository.save(animeSaved);
+        Anime animeUpdate = this.animeRepository.save(animeGenerate);
 
         Assertions.assertThat(animeUpdate).isNotNull();
         Assertions.assertThat(animeUpdate.getId()).isNotNull();
-        Assertions.assertThat(animeUpdate.getNome()).isEqualTo(animeSaved.getNome());
+        Assertions.assertThat(animeUpdate.getNome()).isEqualTo(animeGenerate.getNome());
     }
 
     @Test
     @DisplayName("Teste para a operação de Delete")
     void delete_RemoveData_WhenSuccessful(){
-        Anime animeGenerate = generateAnime();
-        Anime animeSaved = this.animeRepository.save(animeGenerate);
+        Anime animeGenerate = AnimeCreator.generateAnimeToSave();
+        this.animeRepository.save(animeGenerate);
 
-        this.animeRepository.delete(animeSaved);
+        this.animeRepository.delete(animeGenerate);
 
-        Optional<Anime> animeFind = this.animeRepository.findById(animeSaved.getId());
+        Optional<Anime> animeFind = this.animeRepository.findById(animeGenerate.getId());
         Assertions.assertThat(animeFind).isEmpty();
     }
 
     @Test
     @DisplayName("Teste para a operação de findByName")
     void findByName_ReturnData_WhenSuccessful(){
-        Anime animeGenerate = generateAnime();
-        Anime animeSaved = this.animeRepository.save(animeGenerate);
-        Anime animeSaved2 = this.animeRepository.save(animeGenerate);
+        Anime animeGenerate = AnimeCreator.generateAnimeToSave();
+        this.animeRepository.save(animeGenerate);
 
-        List<Anime> animesFind = this.animeRepository.findByNome(animeSaved.getNome());
+        List<Anime> animesFind = this.animeRepository.findByNome(animeGenerate.getNome());
 
         Assertions.assertThat(animesFind).isNotEmpty();
 
         animesFind.forEach(anime -> {
-            Assertions.assertThat(anime.getNome()).isEqualTo(generateAnime().getNome());
+            Assertions.assertThat(anime.getNome()).isEqualTo(animeGenerate.getNome());
         });
 
-        Assertions.assertThat(animesFind).contains(animeSaved);
-        Assertions.assertThat(animesFind).contains(animeSaved2);
+        Assertions.assertThat(animesFind).contains(animeGenerate);
     }
 
     @Test
     @DisplayName("Teste para a operação de findByName quando o nome não está no banco")
     void findByName_ReturnEmptyList_WhenAnimeIsNotFound(){
-        List<Anime> animesFind = this.animeRepository.findByNome(generateAnime().getNome());
+        List<Anime> animesFind = this.animeRepository.findByNome(AnimeCreator.generateAnimeValid().getNome());
 
         Assertions.assertThat(animesFind).isEmpty();
     }
