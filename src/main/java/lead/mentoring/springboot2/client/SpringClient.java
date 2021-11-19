@@ -22,6 +22,7 @@ public class SpringClient {
 
         log.info(object);
 
+        //Requisições que retornam listas ou array
         Anime[] animes = new RestTemplate().getForObject("http://localhost:8080/animes/all", Anime[].class);
 
         log.info(Arrays.toString(animes));
@@ -55,5 +56,24 @@ public class SpringClient {
                 Anime.class);
 
         log.info(newAnimeExchangeSaved);
+
+        //Put and delete aula 29
+
+        Anime putRestTemplate = object;
+        putRestTemplate.setNome("ObjectPutRestTemplate");
+        ResponseEntity<Void>  putRestTemplateSaved = new RestTemplate().exchange("http://localhost:8080/animes/",
+                HttpMethod.PUT,
+                new HttpEntity<>(putRestTemplate),
+                Void.class);
+
+        log.info(putRestTemplateSaved);
+
+        ResponseEntity<Void> restTemplateDelete = new RestTemplate().exchange("http://localhost:8080/animes/{id}",
+                HttpMethod.DELETE,
+                null,
+                Void.class,
+                2);
+
+        log.info(restTemplateDelete);
     }
 }
