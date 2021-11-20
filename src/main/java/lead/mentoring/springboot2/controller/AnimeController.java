@@ -26,7 +26,7 @@ public class AnimeController {
     private final AnimeService animeService;
 
     @GetMapping
-    public ResponseEntity<Page<Anime>> list(Pageable page){
+    public ResponseEntity<Page<Anime>> listAll(Pageable page){
         log.info(dateUtil.formaLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         //Padrão do page é size = 20
         return new ResponseEntity<>(animeService.listAll(page), HttpStatus.OK);

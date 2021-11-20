@@ -1,11 +1,13 @@
 package lead.mentoring.springboot2.requests;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
+@Builder
 public class AnimePostRequestBody {
     @NotEmpty(message = "The name cannot be empty")
     //Indicando que um campo não pode ser vazio

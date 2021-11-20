@@ -10,7 +10,14 @@ public class AnimeCreator {
 
     public static Anime generateAnimeValid(){
         return Anime.builder()
-                .nome("Anime para teste 2")
+                .nome("Anime para teste")
+                .id(1l)
+                .build();
+    }
+
+    public static Anime generateValidUpdateAnime(){
+        return Anime.builder()
+                .nome("Anime para teste update")
                 .id(1l)
                 .build();
     }
