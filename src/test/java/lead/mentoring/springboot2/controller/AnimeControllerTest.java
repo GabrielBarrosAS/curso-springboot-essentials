@@ -34,6 +34,8 @@ class AnimeControllerTest {
     //defidindo quais classes são necessárias dentro da classe que será testada
     //Mock irá simular o comportamento das classes esperadas
     private AnimeService animeServiceMock;
+
+    @Mock
     private DateUtil dateUtilMock;
 
     @BeforeEach
@@ -43,8 +45,12 @@ class AnimeControllerTest {
         PageImpl<Anime> animePage = new PageImpl<>(List.of(AnimeCreator.generateAnimeValid()));
         BDDMockito.when(animeServiceMock.listAll(ArgumentMatchers.any()))
                 .thenReturn(animePage);
-        //Quando alguem chamar o listAll do nosso mock, retorne o pageable criado (contém 1 anime)
+
+        String dateUtilString = "dateUtilMock return";
+        BDDMockito.when(dateUtilMock.formaLocalDateTimeToDatabaseStyle(ArgumentMatchers.any()))
+                .thenReturn(dateUtilString);
     }
+
     @Test
     @DisplayName("Return list of animes inside page object when successfil")
     void list_ReturnListOfAnimesInsidePageObject_WhenSuccessful(){
