@@ -4,7 +4,7 @@ import lead.mentoring.springboot2.requests.AnimePutRequestBody;
 
 public class AnimePutRequestBodyCreator {
 
-    public static AnimePutRequestBody createdAnimePostRequestBody(){
+    public static AnimePutRequestBody createdAnimePutRequestBody(){
         return AnimePutRequestBody.builder()
                 .nome(AnimeCreator.generateValidUpdateAnime().getNome())
                 .id(AnimeCreator.generateValidUpdateAnime().getId())

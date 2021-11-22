@@ -169,10 +169,10 @@ class AnimeControllerTest {
     void replace_UpdateAnime_WhenSuccessful(){
 
         //Verificando se o método não lançou nenhuma exceção
-        Assertions.assertThatCode(() -> animeController.replace(AnimePutRequestBodyCreator.createdAnimePostRequestBody()))
+        Assertions.assertThatCode(() -> animeController.replace(AnimePutRequestBodyCreator.createdAnimePutRequestBody()))
                 .doesNotThrowAnyException();
 
-        ResponseEntity<Void> entity = animeController.replace(AnimePutRequestBodyCreator.createdAnimePostRequestBody());
+        ResponseEntity<Void> entity = animeController.replace(AnimePutRequestBodyCreator.createdAnimePutRequestBody());
 
         Assertions.assertThat(entity).isNotNull();
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface AnimeRepository extends JpaRepository<Anime,Long> {
 
+    //Ao criar um novo método findByAtributo name o jpa entende oque deve buscar no banco de dados
     public List<Anime> findByNome(String nome);
 
 }

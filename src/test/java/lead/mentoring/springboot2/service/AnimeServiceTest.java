@@ -163,7 +163,7 @@ class AnimeServiceTest {
     void replace_UpdateAnime_WhenSuccessful(){
 
         //Verificando se o método não lançou nenhuma exceção
-        Assertions.assertThatCode(() -> animeService.replace(AnimePutRequestBodyCreator.createdAnimePostRequestBody()))
+        Assertions.assertThatCode(() -> animeService.replace(AnimePutRequestBodyCreator.createdAnimePutRequestBody()))
                 .doesNotThrowAnyException();
 
     }
