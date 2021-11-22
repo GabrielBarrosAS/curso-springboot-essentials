@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @EnableWebSecurity
 //Criando um bean que será carregado na aplicação configurando questões de segurança
@@ -18,7 +19,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //Indicando que toda requisição http deve passar pela autorização definida a seguir
         //Todas as requests -> Todas devem estar autenticadas -> Usando a forma httpBasic(existem mais forma possíveis)
-        http.authorizeRequests()
+        //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) -> enviando um token gerado pela
+        //aplicação para que o front-end poder continuar se comunicando de forma segura ->
+        //Assim, após se autenticar você recebe uma chave aleatória para continuar a manipular
+        //Por simplificação vamos desabilitar, mas em outros escopos é necessário habilitar
+        http.csrf().disable()
+                .authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
