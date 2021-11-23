@@ -20,10 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //Indicando que toda requisição http deve passar pela autorização definida a seguir
         //Todas as requests -> Todas devem estar autenticadas -> Usando a forma httpBasic(existem mais forma possíveis)
         //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) -> enviando um token gerado pela
-        //aplicação para que o front-end poder continuar se comunicando de forma segura ->
+        //aplicação para o front-end poder continuar se comunicando de forma segura ->
         //Assim, após se autenticar você recebe uma chave aleatória para continuar a manipular
         //Por simplificação vamos desabilitar, mas em outros escopos é necessário habilitar
-        http.csrf().disable()
+        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
