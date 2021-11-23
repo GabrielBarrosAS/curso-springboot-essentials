@@ -1,5 +1,7 @@
 package lead.mentoring.springboot2.config;
 
+import lead.mentoring.springboot2.service.SpringbootEssentialsUserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,7 +16,10 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 //Criando um bean que será carregado na aplicação configurando questões de segurança
 @Log4j2
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final SpringbootEssentialsUserService springbootEssentialsUserService;
 
     @Override
     //Definir oq vamos protejer com o protocolo http
@@ -41,17 +46,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //Definir usuários em memória e criptografica básica para o password
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        //criando nosso gerenciador de autenticação
-        log.info("Password encoded {}",passwordEncoder.encode("test"));
+        //criando o nosso gerenciador de autenticação
+        log.info("Password encoded {}",passwordEncoder.encode("defauldPassword"));
 
         //Vamos criar nossos usuários em memória da aplicação
-        auth.inMemoryAuthentication()
+        /*auth.inMemoryAuthentication()
                 .withUser("spring-boot-essentials")
                 .password(passwordEncoder.encode("spring-boot-essentials-password"))
                 .roles("USER","ADMIN")
                 .and()
                 .withUser("Gabriel-Barros")
                 .password(passwordEncoder.encode("Gabriel-Barros-password"))
-                .roles("USER");
+                .roles("USER");*/
+        //Importante lembrar que podem exister dois pontos de entradas de usuários,
+        //duas fontes diferentes -> banco e memória
+
+        //Por padrão o spring espera um UserDetailsService para realizar autenticação com banco de dados
+        //Para isso vamos criar o repository para manter os dados no banco e ao criar o service, iremos
+        //implementar uma ‘interface’ que permitirá usar o nosso serviço para o objetivo final
+        //Espera algo que implemente UserDetailsService -> loadUserByUsername
+        auth.userDetailsService(springbootEssentialsUserService)
+                .passwordEncoder(passwordEncoder);
+        //Indicando que no banco de dados a senha vai estar criptografada com o decodificador definido acima
     }
 }

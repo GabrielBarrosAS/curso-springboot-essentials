@@ -48,6 +48,7 @@ public class AnimeController {
     }
 
     @GetMapping(path = "/authenticationPrincipal/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Anime> findByIdAuthenticationPrincipal(@PathVariable long id,
                                                                  @AuthenticationPrincipal UserDetails userDetails){
         //@AuthenticationPrincipal recebendo os dados do usuário que vem da requisição
