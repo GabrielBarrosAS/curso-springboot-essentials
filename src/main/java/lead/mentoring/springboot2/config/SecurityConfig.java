@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
+                .formLogin() //utilizando a página de login padrão do spring
+                .and()
                 .httpBasic();
         //todas as requisições dos controller vão ter que passar pela autenticação básica
     }
