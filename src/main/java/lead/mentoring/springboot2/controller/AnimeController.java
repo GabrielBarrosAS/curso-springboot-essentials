@@ -47,8 +47,7 @@ public class AnimeController {
         return new ResponseEntity(animeService.findByIdOrThrowBadRequestException(id), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/authenticationPrincipal/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(path = "/admin/authenticationPrincipal/{id}")
     public ResponseEntity<Anime> findByIdAuthenticationPrincipal(@PathVariable long id,
                                                                  @AuthenticationPrincipal UserDetails userDetails){
         //@AuthenticationPrincipal recebendo os dados do usuário que vem da requisição
@@ -63,8 +62,7 @@ public class AnimeController {
         return new ResponseEntity(animeService.findByNome(nome), HttpStatus.OK);
     }
 
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping(path = "/admin")
     //Antes de executar o método realiza a verificação do nível de acesso do usuário, nesse caso tem que ser ADMIN
     //Será habilitado nas configurações de segurança com @Enable
     //@Valid -> indicando ao spring que precisa usar a validação de campos
@@ -73,16 +71,14 @@ public class AnimeController {
         return new ResponseEntity(animeService.save(animePostRequestBody),HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping(path = "/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id){
         log.info(dateUtil.formaLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         animeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(path = "/admin")
     public ResponseEntity<Void> replace(@RequestBody @Valid AnimePutRequestBody animePutRequestBody){
         log.info(dateUtil.formaLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         animeService.replace(animePutRequestBody);
