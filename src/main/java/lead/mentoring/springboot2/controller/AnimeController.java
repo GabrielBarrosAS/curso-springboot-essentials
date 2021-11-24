@@ -1,5 +1,6 @@
 package lead.mentoring.springboot2.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import lead.mentoring.springboot2.domain.Anime;
 import lead.mentoring.springboot2.requests.AnimePostRequestBody;
 import lead.mentoring.springboot2.requests.AnimePutRequestBody;
@@ -7,6 +8,7 @@ import lead.mentoring.springboot2.service.AnimeService;
 import lead.mentoring.springboot2.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -29,7 +31,7 @@ public class AnimeController {
     private final AnimeService animeService;
 
     @GetMapping
-    public ResponseEntity<Page<Anime>> listAll(Pageable page){
+    public ResponseEntity<Page<Anime>> listAll(@ParameterObject Pageable page){
         log.info(dateUtil.formaLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         //Padrão do page é size = 20
         return new ResponseEntity<>(animeService.listAll(page), HttpStatus.OK);
