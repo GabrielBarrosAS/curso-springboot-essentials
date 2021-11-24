@@ -28,7 +28,7 @@ public class SpringbootEssentialsUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message = "The name cannot be empty")
+    @NotEmpty(message = "The user name cannot be empty")
     private String nome;
     private String username;
     private String password;

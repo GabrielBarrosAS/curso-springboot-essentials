@@ -30,8 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //aplicação para o front-end poder continuar se comunicando de forma segura ->
         //Assim, após se autenticar você recebe uma chave aleatória para continuar a manipular
         //Por simplificação vamos desabilitar, mas em outros escopos é necessário habilitar
-        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
+        http.csrf()
+                .disable()
                 .authorizeRequests()
                 .antMatchers("/animes/admin/**").hasRole("ADMIN")
                 .antMatchers("/animes/**").hasRole("USER")
