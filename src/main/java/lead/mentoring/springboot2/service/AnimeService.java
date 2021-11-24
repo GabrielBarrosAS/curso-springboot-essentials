@@ -7,6 +7,7 @@ import lead.mentoring.springboot2.repository.AnimeRepository;
 import lead.mentoring.springboot2.requests.AnimePostRequestBody;
 import lead.mentoring.springboot2.requests.AnimePutRequestBody;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.List;
 //Mostrando do spring que alguém pode precisar injetar essa classe
 @RequiredArgsConstructor
 //Spring realiar a injeção de depência necessária nessa classe
-
+@Log4j2
 public class AnimeService {
 
     private final AnimeRepository animeRepository;
@@ -47,6 +48,7 @@ public class AnimeService {
     //Exception inicialmente não é coberta, mas podemos incluir com parâmetro
     @Transactional
     public Anime save(AnimePostRequestBody animePostRequestBody) {
+        log.info(animePostRequestBody);
         return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
 

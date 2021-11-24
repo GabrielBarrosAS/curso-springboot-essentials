@@ -19,7 +19,7 @@ public class Anime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message = "The name cannot be empty")
+    @NotEmpty(message = "The name cannot be empty domain")
     private String nome;
 
 }

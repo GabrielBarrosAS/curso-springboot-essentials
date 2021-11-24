@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class AnimePutRequestBody {
     @Min(value = 1,message = "ID deve ser maior ou igual a 1")
     private long id;
-    @NotEmpty(message = "Name cannot empty")//engloba o null
+    @NotEmpty(message = "Name cannot empty put")//engloba o null
     @NotNull(message = "Name cannot null")
     private String nome;
 

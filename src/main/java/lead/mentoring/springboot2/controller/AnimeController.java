@@ -35,7 +35,7 @@ public class AnimeController {
 
     @GetMapping
     @Operation(summary = "List all animes pageable", description = "Default return page 0 with 5 animes",
-    tags = "Anime List All")
+            tags = "Anime List All")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Successful operation")
     })
@@ -90,10 +90,9 @@ public class AnimeController {
         return new ResponseEntity(animeService.findByNome(nome), HttpStatus.OK);
     }
 
-
     @PostMapping(path = "/admin")
     @Operation(summary = "Create anime when sucessfull", description = "Return new anime created",
-    tags = "Anime CRUD")
+            tags = "Anime CRUD")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "Successful operation"),
             @ApiResponse(responseCode = "401",description = "User not authenticated"),
@@ -104,6 +103,7 @@ public class AnimeController {
     //@Valid -> indicando ao spring que precisa usar a validação de campos
     public  ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
         log.info(dateUtil.formaLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        log.info(animePostRequestBody);
         return new ResponseEntity(animeService.save(animePostRequestBody),HttpStatus.CREATED);
     }
 
@@ -121,7 +121,7 @@ public class AnimeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/admin")
+    @PutMapping(path = "/admin")
     @Operation(summary = "Replace one anime when successfully", description = "Return empty",
             tags = "Anime CRUD")
     @ApiResponses(value = {

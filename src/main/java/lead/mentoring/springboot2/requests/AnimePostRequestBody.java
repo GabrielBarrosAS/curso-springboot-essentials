@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimePostRequestBody {
-    @NotEmpty(message = "The name cannot be empty")
+    @NotEmpty(message = "The name cannot be empty post")
     //Indicando que um campo não pode ser vazio
     @NotNull(message = "The name connot be null")
     //não pode ser null
